@@ -75,30 +75,30 @@ jobs:
       - name: Upload Linux x64
         uses: actions/upload-artifact@v4
         with:
-          name: opencode-linux-x64
-          path: packages/opencode/dist/opencode-linux-x64/bin/opencode
+          name: memfit-linux-x64
+          path: packages/opencode/dist/memfit-linux-x64/bin/memfit
           retention-days: 5
 
       - name: Upload Linux x64 baseline
         uses: actions/upload-artifact@v4
         with:
-          name: opencode-linux-x64-baseline
-          path: packages/opencode/dist/opencode-linux-x64-baseline/bin/opencode
+          name: memfit-linux-x64-baseline
+          path: packages/opencode/dist/memfit-linux-x64-baseline/bin/memfit
           retention-days: 5
           if-no-files-found: ignore
 
       - name: Upload Linux ARM64
         uses: actions/upload-artifact@v4
         with:
-          name: opencode-linux-arm64
-          path: packages/opencode/dist/opencode-linux-arm64/bin/opencode
+          name: memfit-linux-arm64
+          path: packages/opencode/dist/memfit-linux-arm64/bin/memfit
           retention-days: 5
 
       - name: Upload Linux ARM64 musl
         uses: actions/upload-artifact@v4
         with:
-          name: opencode-linux-arm64-musl
-          path: packages/opencode/dist/opencode-linux-arm64-musl/bin/opencode
+          name: memfit-linux-arm64-musl
+          path: packages/opencode/dist/memfit-linux-arm64-musl/bin/memfit
           retention-days: 5
           if-no-files-found: ignore
 
@@ -106,8 +106,8 @@ jobs:
       - name: Upload macOS x64 (cross-compiled)
         uses: actions/upload-artifact@v4
         with:
-          name: opencode-darwin-x64
-          path: packages/opencode/dist/opencode-darwin-x64/bin/opencode
+          name: memfit-darwin-x64
+          path: packages/opencode/dist/memfit-darwin-x64/bin/memfit
           retention-days: 5
           if-no-files-found: ignore
 
@@ -147,15 +147,15 @@ jobs:
       - name: Upload Windows x64
         uses: actions/upload-artifact@v4
         with:
-          name: opencode-windows-x64
-          path: packages/opencode/dist/opencode-windows-x64/bin/opencode.exe
+          name: memfit-windows-x64
+          path: packages/opencode/dist/memfit-windows-x64/bin/memfit.exe
           retention-days: 5
 
       - name: Upload Windows x64 baseline
         uses: actions/upload-artifact@v4
         with:
-          name: opencode-windows-x64-baseline
-          path: packages/opencode/dist/opencode-windows-x64-baseline/bin/opencode.exe
+          name: memfit-windows-x64-baseline
+          path: packages/opencode/dist/memfit-windows-x64-baseline/bin/memfit.exe
           retention-days: 5
           if-no-files-found: ignore
 
@@ -193,8 +193,8 @@ jobs:
       - name: Upload macOS ARM64
         uses: actions/upload-artifact@v4
         with:
-          name: opencode-darwin-arm64
-          path: packages/opencode/dist/opencode-darwin-arm64/bin/opencode
+          name: memfit-darwin-arm64
+          path: packages/opencode/dist/memfit-darwin-arm64/bin/memfit
           retention-days: 5
 
   # Build Desktop (Tauri) versions
@@ -207,24 +207,24 @@ jobs:
         include:
           - os: macos-latest
             target: aarch64-apple-darwin
-            cli-artifact: opencode-darwin-arm64
-            desktop-name: opencode-desktop-darwin-arm64
+            cli-artifact: memfit-darwin-arm64
+            desktop-name: memfit-desktop-darwin-arm64
           - os: macos-latest
             target: x86_64-apple-darwin
-            cli-artifact: opencode-darwin-x64
-            desktop-name: opencode-desktop-darwin-x64
+            cli-artifact: memfit-darwin-x64
+            desktop-name: memfit-desktop-darwin-x64
           - os: windows-latest
             target: x86_64-pc-windows-msvc
-            cli-artifact: opencode-windows-x64
-            desktop-name: opencode-desktop-windows-x64
+            cli-artifact: memfit-windows-x64
+            desktop-name: memfit-desktop-windows-x64
           - os: ubuntu-latest
             target: x86_64-unknown-linux-gnu
-            cli-artifact: opencode-linux-x64
-            desktop-name: opencode-desktop-linux-x64
+            cli-artifact: memfit-linux-x64
+            desktop-name: memfit-desktop-linux-x64
           - os: ubuntu-24.04-arm
             target: aarch64-unknown-linux-gnu
-            cli-artifact: opencode-linux-arm64
-            desktop-name: opencode-desktop-linux-arm64
+            cli-artifact: memfit-linux-arm64
+            desktop-name: memfit-desktop-linux-arm64
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout this repo
@@ -276,10 +276,10 @@ jobs:
           cd packages/desktop
           mkdir -p src-tauri/sidecars
           if [ "${{ runner.os }}" == "Windows" ]; then
-            cp ../../../cli-binary/opencode.exe "src-tauri/sidecars/opencode-cli-${{ matrix.target }}.exe"
+            cp ../../../cli-binary/memfit.exe "src-tauri/sidecars/memfit-cli-${{ matrix.target }}.exe"
           else
-            cp ../../../cli-binary/opencode "src-tauri/sidecars/opencode-cli-${{ matrix.target }}"
-            chmod +x "src-tauri/sidecars/opencode-cli-${{ matrix.target }}"
+            cp ../../../cli-binary/opencode "src-tauri/sidecars/memfit-cli-${{ matrix.target }}"
+            chmod +x "src-tauri/sidecars/memfit-cli-${{ matrix.target }}"
           fi
           ls -la src-tauri/sidecars/
         shell: bash
@@ -303,8 +303,8 @@ jobs:
           cat > src-tauri/tauri.prod.conf.json << 'EOF'
           {
             "$schema": "https://schema.tauri.app/config/2",
-            "productName": "OpenCode",
-            "identifier": "ai.opencode.desktop.unguarded",
+            "productName": "MemFit",
+            "identifier": "ai.memfit.desktop.unguarded",
             "bundle": {
               "createUpdaterArtifacts": false,
               "icon": [
@@ -395,36 +395,36 @@ jobs:
             for file in "$dir"*; do
               if [ -f "$file" ]; then
                 case "$dirname" in
-                  opencode-linux-x64)
-                    cp "$file" "release/opencode-linux-x64"
+                  memfit-linux-x64)
+                    cp "$file" "release/memfit-linux-x64"
                     ;;
-                  opencode-linux-x64-baseline)
-                    cp "$file" "release/opencode-linux-x64-baseline"
+                  memfit-linux-x64-baseline)
+                    cp "$file" "release/memfit-linux-x64-baseline"
                     ;;
-                  opencode-linux-arm64)
-                    cp "$file" "release/opencode-linux-arm64"
+                  memfit-linux-arm64)
+                    cp "$file" "release/memfit-linux-arm64"
                     ;;
-                  opencode-linux-arm64-musl)
-                    cp "$file" "release/opencode-linux-arm64-musl"
+                  memfit-linux-arm64-musl)
+                    cp "$file" "release/memfit-linux-arm64-musl"
                     ;;
-                  opencode-darwin-arm64)
-                    cp "$file" "release/opencode-darwin-arm64"
+                  memfit-darwin-arm64)
+                    cp "$file" "release/memfit-darwin-arm64"
                     ;;
-                  opencode-darwin-x64)
-                    cp "$file" "release/opencode-darwin-x64"
+                  memfit-darwin-x64)
+                    cp "$file" "release/memfit-darwin-x64"
                     ;;
-                  opencode-windows-x64)
-                    cp "$file" "release/opencode-windows-x64.exe"
+                  memfit-windows-x64)
+                    cp "$file" "release/memfit-windows-x64.exe"
                     ;;
-                  opencode-windows-x64-baseline)
-                    cp "$file" "release/opencode-windows-x64-baseline.exe"
+                  memfit-windows-x64-baseline)
+                    cp "$file" "release/memfit-windows-x64-baseline.exe"
                     ;;
                 esac
               fi
             done
 
             # Handle Desktop artifacts (files in nested directories)
-            if [[ "$dirname" == opencode-desktop-* ]]; then
+            if [[ "$dirname" == memfit-desktop-* ]]; then
               # Find and copy DMG files (macOS)
               find "$dir" -name "*.dmg" -type f | while read -r file; do
                 filename=$(basename "$file")
@@ -492,12 +492,12 @@ jobs:
 
             | Platform | Architecture | File |
             |----------|--------------|------|
-            | Linux | x64 | `opencode-linux-x64` |
-            | Linux | x64 (baseline) | `opencode-linux-x64-baseline` |
-            | Linux | ARM64 | `opencode-linux-arm64` |
-            | macOS | Apple Silicon | `opencode-darwin-arm64` |
-            | macOS | Intel | `opencode-darwin-x64` |
-            | Windows | x64 | `opencode-windows-x64.exe` |
+            | Linux | x64 | `memfit-linux-x64` |
+            | Linux | x64 (baseline) | `memfit-linux-x64-baseline` |
+            | Linux | ARM64 | `memfit-linux-arm64` |
+            | macOS | Apple Silicon | `memfit-darwin-arm64` |
+            | macOS | Intel | `memfit-darwin-x64` |
+            | Windows | x64 | `memfit-windows-x64.exe` |
 
             ### Desktop App Downloads
 
@@ -530,16 +530,16 @@ jobs:
 
             ```bash
             # macOS Apple Silicon
-            curl -L https://github.com/${{ github.repository }}/releases/download/${{ needs.fetch-version.outputs.tag }}/opencode-darwin-arm64 -o /usr/local/bin/opencode && chmod +x /usr/local/bin/opencode
+            curl -L https://github.com/${{ github.repository }}/releases/download/${{ needs.fetch-version.outputs.tag }}/memfit-darwin-arm64 -o /usr/local/bin/memfit && chmod +x /usr/local/bin/memfit
 
             # macOS Intel
-            curl -L https://github.com/${{ github.repository }}/releases/download/${{ needs.fetch-version.outputs.tag }}/opencode-darwin-x64 -o /usr/local/bin/opencode && chmod +x /usr/local/bin/opencode
+            curl -L https://github.com/${{ github.repository }}/releases/download/${{ needs.fetch-version.outputs.tag }}/memfit-darwin-x64 -o /usr/local/bin/memfit && chmod +x /usr/local/bin/memfit
 
             # Linux x64
-            curl -L https://github.com/${{ github.repository }}/releases/download/${{ needs.fetch-version.outputs.tag }}/opencode-linux-x64 -o /usr/local/bin/opencode && chmod +x /usr/local/bin/opencode
+            curl -L https://github.com/${{ github.repository }}/releases/download/${{ needs.fetch-version.outputs.tag }}/memfit-linux-x64 -o /usr/local/bin/memfit && chmod +x /usr/local/bin/memfit
 
             # Linux ARM64
-            curl -L https://github.com/${{ github.repository }}/releases/download/${{ needs.fetch-version.outputs.tag }}/opencode-linux-arm64 -o /usr/local/bin/opencode && chmod +x /usr/local/bin/opencode
+            curl -L https://github.com/${{ github.repository }}/releases/download/${{ needs.fetch-version.outputs.tag }}/memfit-linux-arm64 -o /usr/local/bin/memfit && chmod +x /usr/local/bin/memfit
             ```
 
             ### Verification
