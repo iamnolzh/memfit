@@ -75,13 +75,28 @@ export namespace ModelsDev {
 
   export type Provider = z.infer<typeof Provider>
 
+  const NAME_MAP: Record<string, string> = {
+    "OpenCode Zen": "MemFit Zen",
+    "opencode-zen": "MemFit Zen",
+    "OpenCode": "MemFit",
+  }
+
+  function renameProviders(providers: Record<string, Provider>) {
+    for (const provider of Object.values(providers)) {
+      if (NAME_MAP[provider.name]) {
+        provider.name = NAME_MAP[provider.name]
+      }
+    }
+    return providers
+  }
+
   export async function get() {
     refresh()
     const file = Bun.file(filepath)
     const result = await file.json().catch(() => {})
-    if (result) return result as Record<string, Provider>
+    if (result) return renameProviders(result) as Record<string, Provider>
     const json = await data()
-    return JSON.parse(json) as Record<string, Provider>
+    return renameProviders(JSON.parse(json)) as Record<string, Provider>
   }
 
   export async function refresh() {

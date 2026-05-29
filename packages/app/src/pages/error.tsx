@@ -75,7 +75,7 @@ function formatInitError(error: InitError): string {
       return [
         `Model not found: ${providerID}/${modelID}`,
         ...(Array.isArray(suggestions) && suggestions.length ? ["Did you mean: " + suggestions.join(", ")] : []),
-        `Check your config (yakai.json) provider/model names`,
+        `Check your config (memfit.json) provider/model names`,
       ].join("\n")
     }
     case "ProviderInitError": {
