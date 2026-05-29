@@ -275,10 +275,17 @@ jobs:
         run: |
           cd packages/desktop
           mkdir -p src-tauri/sidecars
+          echo "Contents of cli-binary:"
+          find ../../cli-binary -type f
+          
           if [ "${{ runner.os }}" == "Windows" ]; then
-            cp ../../cli-binary/memfit.exe "src-tauri/sidecars/memfit-cli-${{ matrix.target }}.exe"
+            BINARY_PATH=$(find ../../cli-binary -type f -name "memfit.exe" | head -1)
+            echo "Found Windows binary at: $BINARY_PATH"
+            cp "$BINARY_PATH" "src-tauri/sidecars/memfit-cli-${{ matrix.target }}.exe"
           else
-            cp ../../cli-binary/memfit "src-tauri/sidecars/memfit-cli-${{ matrix.target }}"
+            BINARY_PATH=$(find ../../cli-binary -type f -name "memfit" | head -1)
+            echo "Found Unix binary at: $BINARY_PATH"
+            cp "$BINARY_PATH" "src-tauri/sidecars/memfit-cli-${{ matrix.target }}"
             chmod +x "src-tauri/sidecars/memfit-cli-${{ matrix.target }}"
           fi
           ls -la src-tauri/sidecars/
