@@ -1,0 +1,14 @@
+<svg width="234" height="42" viewBox="0 0 234 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="yak-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF416C" />
+      <stop offset="100%" stop-color="#FF4B2B" />
+    </linearGradient>
+  </defs>
+  <!-- 左边 Y 字形渐变 Logo 图标 -->
+  <g transform="translate(15, 6) scale(0.06)">
+    <path d="M170 140 L256 270 L342 140 M256 270 L256 390" stroke="url(#yak-grad)" stroke-width="48" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <!-- 右边 YAK 文字 -->
+  <text x="70" y="29" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif" font-weight="900" font-size="28" fill="#F1ECEC" letter-spacing="1.5">YakAi</text>
+</svg>

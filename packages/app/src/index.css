@@ -1,0 +1,90 @@
+@import "@opencode-ai/ui/styles/tailwind";
+
+:root {
+  a {
+    cursor: default;
+  }
+}
+
+/* MemFit Premium Toggle Switch */
+.memfit-toggle {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.memfit-toggle input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+.memfit-toggle-track {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  width: 36px;
+  height: 20px;
+  border-radius: 10px;
+  background: var(--surface-base);
+  border: 1px solid var(--border-weak-base);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.memfit-toggle-thumb {
+  position: absolute;
+  left: 2px;
+  width: 14px;
+  height: 14px;
+  border-radius: 7px;
+  background: var(--icon-invert-base);
+  border: 1px solid var(--border-base);
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.06);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover state */
+.memfit-toggle:hover .memfit-toggle-track {
+  border-color: var(--border-hover);
+  background: var(--surface-hover);
+}
+
+/* Checked state */
+.memfit-toggle input:checked + .memfit-toggle-track {
+  background: linear-gradient(135deg, #6366f1, #818cf8);
+  border-color: #6366f1;
+  box-shadow:
+    0 0 0 1px rgba(99, 102, 241, 0.15),
+    0 2px 8px rgba(99, 102, 241, 0.25);
+}
+
+.memfit-toggle input:checked + .memfit-toggle-track .memfit-toggle-thumb {
+  left: 18px;
+  background: #fff;
+  border-color: transparent;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+/* Focus state */
+.memfit-toggle input:focus-visible + .memfit-toggle-track {
+  box-shadow: 0 0 0 2px var(--surface-focus);
+}
+
+/* Active press state */
+.memfit-toggle:active .memfit-toggle-thumb {
+  width: 17px;
+}
+
+.memfit-toggle input:checked:active + .memfit-toggle-track .memfit-toggle-thumb {
+  left: 15px;
+}

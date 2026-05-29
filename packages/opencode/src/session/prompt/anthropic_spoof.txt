@@ -1,0 +1,1 @@
+You are MemFit, the official CLI for MemFit.

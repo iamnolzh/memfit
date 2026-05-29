@@ -1,0 +1,33 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "MemFit",
+  "identifier": "ai.memfit.desktop",
+  "bundle": {
+    "createUpdaterArtifacts": true,
+    "icon": [
+      "icons/32x32.png",
+      "icons/128x128.png",
+      "icons/128x128@2x.png",
+      "icons/icon.icns",
+      "icons/icon.ico"
+    ],
+    "windows": {
+      "nsis": {
+        "installerIcon": "icons/icon.ico"
+      }
+    },
+    "linux": {
+      "deb": {
+        "files": {
+          "/usr/share/metainfo/ai.memfit.memfit.metainfo.xml": "release/appstream.metainfo.xml"
+        }
+      }
+    }
+  },
+  "plugins": {
+    "updater": {
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IEYwMDM5Nzg5OUMzOUExMDQKUldRRW9UbWNpWmNEOENYT01CV0lhOXR1UFhpaXJsK1Z3aU9lZnNtNzE0TDROWVMwVW9XQnFOelkK",
+      "endpoints": ["https://memfit.ai/releases/latest.json"]
+    }
+  }
+}
