@@ -67,7 +67,7 @@ export namespace Project {
             id: id ?? "global",
             worktree: sandbox,
             sandbox: sandbox,
-            vcs: Info.shape.vcs.parse(Flag.OPENCODE_FAKE_VCS),
+            vcs: Info.shape.vcs.parse(Flag.MEMFIT_FAKE_VCS),
           }
         }
 
@@ -92,7 +92,7 @@ export namespace Project {
               id: "global",
               worktree: sandbox,
               sandbox: sandbox,
-              vcs: Info.shape.vcs.parse(Flag.OPENCODE_FAKE_VCS),
+              vcs: Info.shape.vcs.parse(Flag.MEMFIT_FAKE_VCS),
             }
           }
 
@@ -126,7 +126,7 @@ export namespace Project {
             id,
             sandbox,
             worktree: sandbox,
-            vcs: Info.shape.vcs.parse(Flag.OPENCODE_FAKE_VCS),
+            vcs: Info.shape.vcs.parse(Flag.MEMFIT_FAKE_VCS),
           }
         }
 
@@ -149,7 +149,7 @@ export namespace Project {
             id,
             sandbox,
             worktree: sandbox,
-            vcs: Info.shape.vcs.parse(Flag.OPENCODE_FAKE_VCS),
+            vcs: Info.shape.vcs.parse(Flag.MEMFIT_FAKE_VCS),
           }
         }
 
@@ -165,7 +165,7 @@ export namespace Project {
         id: "global",
         worktree: "/",
         sandbox: "/",
-        vcs: Info.shape.vcs.parse(Flag.OPENCODE_FAKE_VCS),
+        vcs: Info.shape.vcs.parse(Flag.MEMFIT_FAKE_VCS),
       }
     })
 
@@ -189,7 +189,7 @@ export namespace Project {
     // migrate old projects before sandboxes
     if (!existing.sandboxes) existing.sandboxes = []
 
-    if (Flag.OPENCODE_EXPERIMENTAL_ICON_DISCOVERY) discover(existing)
+    if (Flag.MEMFIT_EXPERIMENTAL_ICON_DISCOVERY) discover(existing)
     const result: Info = {
       ...existing,
       worktree,

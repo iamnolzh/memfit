@@ -8,8 +8,8 @@ import { iife } from "@/util/iife"
 import { Flag } from "../flag/flag"
 
 declare global {
-  const OPENCODE_VERSION: string
-  const OPENCODE_CHANNEL: string
+  const MEMFIT_VERSION: string
+  const MEMFIT_CHANNEL: string
 }
 
 export namespace Installation {
@@ -58,7 +58,7 @@ export namespace Installation {
   }
 
   export async function method() {
-    if (process.execPath.includes(path.join(".opencode", "bin"))) return "curl"
+    if (process.execPath.includes(path.join(".memfit", "bin"))) return "curl"
     if (process.execPath.includes(path.join(".local", "bin"))) return "curl"
     const exec = process.execPath.toLowerCase()
 
@@ -81,7 +81,7 @@ export namespace Installation {
       },
       {
         name: "brew" as const,
-        command: () => $`brew list --formula opencode`.throws(false).quiet().text(),
+        command: () => $`brew list --formula memfit`.throws(false).quiet().text(),
       },
     ]
 
@@ -95,7 +95,7 @@ export namespace Installation {
 
     for (const check of checks) {
       const output = await check.command()
-      if (output.includes(check.name === "brew" ? "memfit" : "opencode-ai")) {
+      if (output.includes(check.name === "brew" ? "memfit" : "memfit")) {
         return check.name
       }
     }
@@ -111,9 +111,9 @@ export namespace Installation {
   )
 
   async function getBrewFormula() {
-    const tapFormula = await $`brew list --formula sst/tap/opencode`.throws(false).quiet().text()
-    if (tapFormula.includes("memfit")) return "sst/tap/opencode"
-    const coreFormula = await $`brew list --formula opencode`.throws(false).quiet().text()
+    const tapFormula = await $`brew list --formula sst/tap/memfit`.throws(false).quiet().text()
+    if (tapFormula.includes("memfit")) return "sst/tap/memfit"
+    const coreFormula = await $`brew list --formula memfit`.throws(false).quiet().text()
     if (coreFormula.includes("memfit")) return "memfit"
     return "memfit"
   }
@@ -128,13 +128,13 @@ export namespace Installation {
         })
         break
       case "npm":
-        cmd = $`npm install -g opencode-ai@${target}`
+        cmd = $`npm install -g memfit@${target}`
         break
       case "pnpm":
-        cmd = $`pnpm install -g opencode-ai@${target}`
+        cmd = $`pnpm install -g memfit@${target}`
         break
       case "bun":
-        cmd = $`bun install -g opencode-ai@${target}`
+        cmd = $`bun install -g memfit@${target}`
         break
       case "brew": {
         const formula = await getBrewFormula()
@@ -161,9 +161,9 @@ export namespace Installation {
     await $`${process.execPath} --version`.nothrow().quiet().text()
   }
 
-  export const VERSION = typeof OPENCODE_VERSION === "string" ? OPENCODE_VERSION : "local"
-  export const CHANNEL = typeof OPENCODE_CHANNEL === "string" ? OPENCODE_CHANNEL : "local"
-  export const USER_AGENT = `opencode/${CHANNEL}/${VERSION}/${Flag.OPENCODE_CLIENT}`
+  export const VERSION = typeof MEMFIT_VERSION === "string" ? MEMFIT_VERSION : "local"
+  export const CHANNEL = typeof MEMFIT_CHANNEL === "string" ? MEMFIT_CHANNEL : "local"
+  export const USER_AGENT = `memfit/${CHANNEL}/${VERSION}/${Flag.MEMFIT_CLIENT}`
 
   export async function latest(installMethod?: Method) {
     const detectedMethod = installMethod || (await method())
@@ -171,7 +171,7 @@ export namespace Installation {
     if (detectedMethod === "brew") {
       const formula = await getBrewFormula()
       if (formula === "memfit") {
-        return fetch("https://formulae.brew.sh/api/formula/opencode.json")
+        return fetch("https://formulae.brew.sh/api/formula/memfit.json")
           .then((res) => {
             if (!res.ok) throw new Error(res.statusText)
             return res.json()
@@ -187,7 +187,7 @@ export namespace Installation {
         return reg.endsWith("/") ? reg.slice(0, -1) : reg
       })
       const channel = CHANNEL
-      return fetch(`${registry}/opencode-ai/${channel}`)
+      return fetch(`${registry}/memfit/${channel}`)
         .then((res) => {
           if (!res.ok) throw new Error(res.statusText)
           return res.json()
@@ -195,7 +195,7 @@ export namespace Installation {
         .then((data: any) => data.version)
     }
 
-    return fetch("https://api.github.com/repos/anomalyco/opencode/releases/latest")
+    return fetch("https://api.github.com/repos/iamnolzh/memfit/releases/latest")
       .then((res) => {
         if (!res.ok) throw new Error(res.statusText)
         return res.json()

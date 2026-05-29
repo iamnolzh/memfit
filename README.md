@@ -49,11 +49,11 @@ curl -L https://github.com/iamnolzh/memfit/releases/latest/download/memfit-linux
 }
 ```
 
-项目级配置放在项目根目录的 `.opencode/` 目录下：
+项目级配置放在项目根目录的 `.memfit/` 目录下：
 
 ```
-.opencode/
-├── opencode.jsonc    # 项目配置
+.memfit/
+├── memfit.jsonc      # 项目配置
 ├── agent/*.md        # 自定义 Agent
 ├── command/*.md      # 自定义命令
 ├── skill/*/SKILL.md  # 技能包
@@ -64,7 +64,7 @@ curl -L https://github.com/iamnolzh/memfit/releases/latest/download/memfit-linux
 ### 自定义 Agent
 
 ```markdown
-<!-- .opencode/agent/reviewer.md -->
+<!-- .memfit/agent/reviewer.md -->
 ---
 description: 代码审查专家
 model: anthropic/claude-sonnet-4-20250514
@@ -77,7 +77,7 @@ mode: subagent
 ### 自定义命令
 
 ```markdown
-<!-- .opencode/command/test.md -->
+<!-- .memfit/command/test.md -->
 ---
 description: 运行测试套件
 ---
@@ -88,7 +88,7 @@ description: 运行测试套件
 ### 自定义工具
 
 ```ts
-// .opencode/tool/my-tool.ts
+// .memfit/tool/my-tool.ts
 import { tool } from "@opencode-ai/plugin"
 
 export default tool({

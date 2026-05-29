@@ -67,8 +67,8 @@ export namespace SystemPrompt {
     path.join(os.homedir(), ".claude", "CLAUDE.md"),
   ]
 
-  if (Flag.OPENCODE_CONFIG_DIR) {
-    GLOBAL_RULE_FILES.push(path.join(Flag.OPENCODE_CONFIG_DIR, "AGENTS.md"))
+  if (Flag.MEMFIT_CONFIG_DIR) {
+    GLOBAL_RULE_FILES.push(path.join(Flag.MEMFIT_CONFIG_DIR, "AGENTS.md"))
   }
 
   export async function custom() {

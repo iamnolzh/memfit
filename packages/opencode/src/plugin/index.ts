@@ -30,7 +30,7 @@ export namespace Plugin {
       $: Bun.$,
     }
     const plugins = [...(config.plugin ?? [])]
-    if (!Flag.OPENCODE_DISABLE_DEFAULT_PLUGINS) {
+    if (!Flag.MEMFIT_DISABLE_DEFAULT_PLUGINS) {
       plugins.push(...BUILTIN)
     }
     for (let plugin of plugins) {

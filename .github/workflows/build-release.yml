@@ -258,6 +258,12 @@ jobs:
           workspaces: packages/desktop/src-tauri
           shared-key: ${{ matrix.target }}
 
+      - name: Install tauri-cli (Ubuntu)
+        if: contains(matrix.os, 'ubuntu')
+        run: |
+          cargo install tauri-cli --version "^2" --force
+          cargo tauri --version
+
       - name: Install dependencies
         run: |
                     bun install

@@ -73,7 +73,7 @@ export namespace Agent {
           PermissionNext.fromConfig({
             edit: {
               "*": "deny",
-              ".opencode/plan/*.md": "allow",
+              ".memfit/plan/*.md": "allow",
             },
           }),
           user,

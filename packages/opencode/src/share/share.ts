@@ -66,7 +66,7 @@ export namespace Share {
   }
 
   export const URL =
-    process.env["OPENCODE_API"] ??
+    process.env["MEMFIT_API"] ??
     (Installation.isPreview() || Installation.isLocal() ? "https://api.dev.memfit.ai" : "https://api.memfit.ai")
 
   export async function create(sessionID: string) {
