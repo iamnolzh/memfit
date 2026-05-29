@@ -37,7 +37,7 @@ winget install memfit
 | 系统 | 路径 |
 |------|------|
 | macOS / Linux | `~/.config/memfit/config.json` |
-| Windows | `%LOCALAPPDATA%\memfit\config.json`（即 `C:\Users\<用户名>\AppData\Local\memfit\config.json`） |
+| Windows | `C:\Users\<用户名>\.config\memfit\config.json` |
 
 ```jsonc
 {
@@ -77,7 +77,7 @@ winget install memfit
 ```
 
 **Windows 用户注意**：如果杀毒软件（如 360、火绒、卡巴斯基等）导致桌面应用启动崩溃（`Segmentation fault`），请将 MemFit 安装目录加入杀毒白名单：
-- 路径：`C:\Users\<用户名>\AppData\Local\MemFit\`
+- 路径：`C:\Users\<用户名>\AppData\Local\MemFit\`（安装目录）和 `C:\Users\<用户名>\.config\memfit\`（配置目录）
 
 ### 自定义 Agent
 
@@ -156,7 +156,7 @@ description: Use when reviewing pull requests for security and quality
 
 Agent 在对话中说 "用 code-review skill 审查这个 PR" 即可触发加载。
 
-Skill 也可以放在全局目录 `~/.memfit/skill/`（macOS/Linux）或 `%LOCALAPPDATA%\memfit\skill\`（Windows），所有项目共享。
+Skill 也可以放在全局目录 `~/.memfit/skill/`（macOS/Linux）或 `C:\Users\<用户名>\.memfit\skill\`（Windows），所有项目共享。
 
 ### 自定义 Provider
 
