@@ -115,8 +115,8 @@ curl -L https://github.com/iamnolzh/memfit/releases/latest/download/memfit-linux
 | macOS | Apple Silicon | `.dmg` |
 | macOS | Intel | `.dmg` |
 | Windows | x64 | `.msi` / `.exe` |
-| Linux | x64 | `.AppImage` / `.deb` |
-| Linux | ARM64 | `.AppImage` / `.deb` |
+| Linux | x64 | `.deb` |
+| Linux | ARM64 | `.deb` |
 
 ### 平台支持
 

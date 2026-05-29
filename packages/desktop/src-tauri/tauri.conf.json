@@ -26,7 +26,7 @@
       "icons/icon.ico"
     ],
     "active": true,
-    "targets": ["deb", "rpm", "dmg", "nsis", "app", "appimage"],
+    "targets": ["deb", "rpm", "dmg", "nsis", "app"],
     "externalBin": ["sidecars/memfit-cli"],
     "macOS": {
       "entitlements": "./entitlements.plist"
@@ -36,11 +36,6 @@
         "installerIcon": "icons/icon.ico",
         "headerImage": "assets/nsis-header.bmp",
         "sidebarImage": "assets/nsis-sidebar.bmp"
-      }
-    },
-    "linux": {
-      "appimage": {
-        "bundleMediaFramework": true
       }
     }
   }

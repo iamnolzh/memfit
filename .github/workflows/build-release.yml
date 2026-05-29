@@ -258,14 +258,6 @@ jobs:
           workspaces: packages/desktop/src-tauri
           shared-key: ${{ matrix.target }}
 
-      # Fixes AppImage build issues on Linux
-      - name: Install tauri-cli from portable appimage branch
-        if: contains(matrix.os, 'ubuntu')
-        run: |
-          cargo install tauri-cli --git https://github.com/tauri-apps/tauri --branch feat/truly-portable-appimage --force
-          echo "Installed tauri-cli version:"
-          cargo tauri --version
-
       - name: Install dependencies
         run: |
                     bun install
@@ -374,7 +366,6 @@ jobs:
         with:
           name: ${{ matrix.desktop-name }}
           path: |
-            packages/desktop/src-tauri/target/${{ matrix.target }}/release/bundle/appimage/*.AppImage
             packages/desktop/src-tauri/target/${{ matrix.target }}/release/bundle/deb/*.deb
           retention-days: 5
           if-no-files-found: ignore
@@ -459,13 +450,6 @@ jobs:
                 cp "$file" "release/$filename"
               done
 
-              # Find and copy AppImage files (Linux)
-              find "$dir" -name "*.AppImage" -type f | while read -r file; do
-                filename=$(basename "$file")
-                echo "Copying AppImage: $filename"
-                cp "$file" "release/$filename"
-              done
-
               # Find and copy deb files (Linux)
               find "$dir" -name "*.deb" -type f | while read -r file; do
                 filename=$(basename "$file")
@@ -519,8 +503,8 @@ jobs:
             | macOS | Apple Silicon | `.dmg` |
             | macOS | Intel | `.dmg` |
             | Windows | x64 | `.msi` / `.exe` |
-            | Linux | x64 | `.AppImage` / `.deb` |
-            | Linux | ARM64 | `.AppImage` / `.deb` |
+            | Linux | x64 | `.deb` |
+            | Linux | ARM64 | `.deb` |
 
             #### macOS: Running Unsigned App
 
