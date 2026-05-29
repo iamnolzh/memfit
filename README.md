@@ -20,9 +20,24 @@ curl -L https://github.com/iamnolzh/memfit/releases/latest/download/memfit-linux
 
 桌面应用从 [Releases](https://github.com/iamnolzh/memfit/releases) 下载（macOS `.dmg` / Windows `.msi` / Linux `.deb`）。
 
+Windows 用户也可以用 [Scoop](https://scoop.sh) 或 [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) 安装（如已发布）：
+
+```powershell
+# Scoop
+scoop install memfit
+
+# winget
+winget install memfit
+```
+
 ## 配置
 
-全局配置：`~/.config/memfit/config.json`
+全局配置文件位置：
+
+| 系统 | 路径 |
+|------|------|
+| macOS / Linux | `~/.config/memfit/config.json` |
+| Windows | `%LOCALAPPDATA%\memfit\config.json`（即 `C:\Users\<用户名>\AppData\Local\memfit\config.json`） |
 
 ```jsonc
 {
@@ -49,7 +64,7 @@ curl -L https://github.com/iamnolzh/memfit/releases/latest/download/memfit-linux
 }
 ```
 
-项目级配置放在项目根目录的 `.memfit/` 目录下：
+项目级配置放在项目根目录的 `.memfit/` 目录下（所有平台通用）：
 
 ```
 .memfit/
@@ -60,6 +75,9 @@ curl -L https://github.com/iamnolzh/memfit/releases/latest/download/memfit-linux
 ├── themes/*.json     # 自定义主题
 └── tool/*.ts         # 自定义工具
 ```
+
+**Windows 用户注意**：如果杀毒软件（如 360、火绒、卡巴斯基等）导致桌面应用启动崩溃（`Segmentation fault`），请将 MemFit 安装目录加入杀毒白名单：
+- 路径：`C:\Users\<用户名>\AppData\Local\MemFit\`
 
 ### 自定义 Agent
 
@@ -99,6 +117,46 @@ export default tool({
   },
 })
 ```
+
+### Skill（技能包）
+
+Skill 是给 Agent 加载专业指令集的机制。Agent 可以通过 `skill` 工具按需加载。
+
+在 `.memfit/skill/` 下创建目录，每个目录放一个 `SKILL.md`：
+
+```
+.memfit/skill/
+├── code-review/SKILL.md
+├── pentest/SKILL.md
+└── frontend/SKILL.md
+```
+
+SKILL.md 格式：
+
+```markdown
+---
+name: code-review
+description: Use when reviewing pull requests for security and quality
+---
+
+## 代码审查流程
+
+1. 检查 SQL 注入、XSS、CSRF 等安全漏洞
+2. 检查 N+1 查询和性能问题
+3. 检查错误处理是否完整
+4. 检查是否有未处理的 edge case
+
+## 输出格式
+
+按严重程度排序：
+- **Critical**: 必须修复才能合并
+- **Warning**: 建议修复
+- **Info**: 改进建议
+```
+
+Agent 在对话中说 "用 code-review skill 审查这个 PR" 即可触发加载。
+
+Skill 也可以放在全局目录 `~/.memfit/skill/`（macOS/Linux）或 `%LOCALAPPDATA%\memfit\skill\`（Windows），所有项目共享。
 
 ### 自定义 Provider
 
