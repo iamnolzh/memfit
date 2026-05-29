@@ -276,9 +276,9 @@ jobs:
           cd packages/desktop
           mkdir -p src-tauri/sidecars
           if [ "${{ runner.os }}" == "Windows" ]; then
-            cp ../../../cli-binary/memfit.exe "src-tauri/sidecars/memfit-cli-${{ matrix.target }}.exe"
+            cp ../../cli-binary/memfit.exe "src-tauri/sidecars/memfit-cli-${{ matrix.target }}.exe"
           else
-            cp ../../../cli-binary/opencode "src-tauri/sidecars/memfit-cli-${{ matrix.target }}"
+            cp ../../cli-binary/memfit "src-tauri/sidecars/memfit-cli-${{ matrix.target }}"
             chmod +x "src-tauri/sidecars/memfit-cli-${{ matrix.target }}"
           fi
           ls -la src-tauri/sidecars/
