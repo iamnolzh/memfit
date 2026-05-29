@@ -89,9 +89,9 @@ async fn ensure_server_started(state: State<'_, ServerState>) -> Result<(), Stri
 }
 
 fn get_sidecar_port() -> u32 {
-    option_env!("OPENCODE_PORT")
+    option_env!("MEMFIT_PORT")
         .map(|s| s.to_string())
-        .or_else(|| std::env::var("OPENCODE_PORT").ok())
+        .or_else(|| std::env::var("MEMFIT_PORT").ok())
         .and_then(|port_str| port_str.parse().ok())
         .unwrap_or_else(|| {
             TcpListener::bind("127.0.0.1:0")
@@ -120,8 +120,8 @@ fn spawn_sidecar(app: &AppHandle, port: u32) -> CommandChild {
         .shell()
         .sidecar("memfit-cli")
         .unwrap()
-        .env("OPENCODE_EXPERIMENTAL_ICON_DISCOVERY", "true")
-        .env("OPENCODE_CLIENT", "desktop")
+        .env("MEMFIT_EXPERIMENTAL_ICON_DISCOVERY", "true")
+        .env("MEMFIT_CLIENT", "desktop")
         .env("XDG_STATE_HOME", &state_dir)
         .args(["serve", &format!("--port={port}")])
         .spawn()
@@ -133,8 +133,8 @@ fn spawn_sidecar(app: &AppHandle, port: u32) -> CommandChild {
         let shell = get_user_shell();
         app.shell()
             .command(&shell)
-            .env("OPENCODE_EXPERIMENTAL_ICON_DISCOVERY", "true")
-            .env("OPENCODE_CLIENT", "desktop")
+            .env("MEMFIT_EXPERIMENTAL_ICON_DISCOVERY", "true")
+            .env("MEMFIT_CLIENT", "desktop")
             .env("XDG_STATE_HOME", &state_dir)
             .args([
                 "-il",
