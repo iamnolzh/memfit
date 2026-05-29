@@ -271,6 +271,12 @@ jobs:
                     bun install
         shell: bash
 
+      - name: Download CLI binary
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.cli-artifact }}
+          path: cli-binary
+
       - name: Prepare sidecar binary
         run: |
           cd packages/desktop
