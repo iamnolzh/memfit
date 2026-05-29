@@ -20,16 +20,6 @@ curl -L https://github.com/iamnolzh/memfit/releases/latest/download/memfit-linux
 
 桌面应用从 [Releases](https://github.com/iamnolzh/memfit/releases) 下载（macOS `.dmg` / Windows `.msi` / Linux `.deb`）。
 
-Windows 用户也可以用 [Scoop](https://scoop.sh) 或 [winget](https://learn.microsoft.com/en-us/windows/package-manager/winget/) 安装（如已发布）：
-
-```powershell
-# Scoop
-scoop install memfit
-
-# winget
-winget install memfit
-```
-
 ## 配置
 
 全局配置文件位置：
@@ -43,16 +33,9 @@ winget install memfit
 {
   "$schema": "https://memfit.ai/config.json",
   "model": "anthropic/claude-sonnet-4-20250514",
-  "plugin": ["oh-my-openagent"],
   "provider": {
     "anthropic": {
       "options": { "apiKey": "{env:ANTHROPIC_API_KEY}" }
-    }
-  },
-  "mcp": {
-    "context7": {
-      "type": "remote",
-      "url": "https://mcp.context7.com/mcp"
     }
   },
   "permission": {
@@ -63,6 +46,26 @@ winget install memfit
   "theme": "catppuccin-mocha"
 }
 ```
+
+> **自定义 Provider 示例**（兼容任意 OpenAI 兼容 API）：
+>
+> ```jsonc
+> {
+>   "provider": {
+>     "my-api": {
+>       "npm": "@ai-sdk/openai-compatible",
+>       "models": { "my-model": { "name": "我的模型" } },
+>       "options": {
+>         "apiKey": "your-api-key",
+>         "baseURL": "https://your-api.com/v1"
+>       }
+>     }
+>   }
+> }
+> ```
+>
+> 如需使用插件（如 oh-my-openagent），添加 `"plugin": ["oh-my-openagent"]` 字段。
+> **注意**：插件需要在联网环境下安装依赖，首次启动时会自动下载。如遇 `BunInstallFailedError`，请检查网络连接或先去掉 plugin 字段。
 
 项目级配置放在项目根目录的 `.memfit/` 目录下（所有平台通用）：
 
@@ -157,25 +160,6 @@ description: Use when reviewing pull requests for security and quality
 Agent 在对话中说 "用 code-review skill 审查这个 PR" 即可触发加载。
 
 Skill 也可以放在全局目录 `~/.memfit/skill/`（macOS/Linux）或 `C:\Users\<用户名>\.memfit\skill\`（Windows），所有项目共享。
-
-### 自定义 Provider
-
-支持任意 OpenAI 兼容 API：
-
-```jsonc
-{
-  "provider": {
-    "my-api": {
-      "npm": "@ai-sdk/openai-compatible",
-      "models": { "my-model": { "name": "我的模型" } },
-      "options": {
-        "apiKey": "{env:MY_API_KEY}",
-        "baseURL": "https://my-api.com/v1"
-      }
-    }
-  }
-}
-```
 
 ## 快捷键
 
